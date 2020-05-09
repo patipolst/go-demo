@@ -215,33 +215,42 @@ func (ec *executionContext) introspectType(name string) (*introspection.Type, er
 }
 
 var sources = []*ast.Source{
-	&ast.Source{Name: "schema/schema.graphqls", Input: `# GraphQL schema example
-#
-# https://gqlgen.com/getting-started/
+	&ast.Source{Name: "schema/schema.graphqls", Input: `# type Todo {
+#   id: ID!
+#   text: String!
+#   done: Boolean!
+#   user: User!
+# }
 
-type Todo {
+# type User {
+#   id: ID!
+#   name: String!
+# }
+
+# input NewTodo {
+#   text: String!
+#   userId: String!
+# }`, BuiltIn: false},
+	&ast.Source{Name: "schema/mutation.graphql", Input: `type Mutation {
+  createTodo(input: NewTodo!): Todo!
+}`, BuiltIn: false},
+	&ast.Source{Name: "schema/query.graphql", Input: `type Query {
+  todos: [Todo!]!
+}`, BuiltIn: false},
+	&ast.Source{Name: "schema/type/todo.graphql", Input: `type Todo {
   id: ID!
   text: String!
   done: Boolean!
   user: User!
 }
 
-type User {
-  id: ID!
-  name: String!
-}
-
-type Query {
-  todos: [Todo!]!
-}
-
 input NewTodo {
   text: String!
   userId: String!
-}
-
-type Mutation {
-  createTodo(input: NewTodo!): Todo!
+}`, BuiltIn: false},
+	&ast.Source{Name: "schema/type/user.graphql", Input: `type User {
+  id: ID!
+  name: String!
 }`, BuiltIn: false},
 }
 var parsedSchema = gqlparser.MustLoadSchema(sources...)
