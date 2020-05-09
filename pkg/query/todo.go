@@ -8,13 +8,13 @@ type Todo struct {
 }
 
 type TodoQuery interface {
-	GetTodos() []Todo
-	GetTodo(string) (Todo, error)
+	GetTodos() []*Todo
+	GetTodo(string) (*Todo, error)
 }
 
 type TodoStore interface {
-	GetAllTodos() []Todo
-	GetTodo(string) (Todo, error)
+	GetAllTodos() []*Todo
+	GetTodo(string) (*Todo, error)
 }
 
 type todoQuery struct {
@@ -25,10 +25,10 @@ func NewTodoQuery(store TodoStore) TodoQuery {
 	return &todoQuery{store}
 }
 
-func (s *todoQuery) GetTodos() []Todo {
+func (s *todoQuery) GetTodos() []*Todo {
 	return s.store.GetAllTodos()
 }
 
-func (s *todoQuery) GetTodo(id string) (Todo, error) {
+func (s *todoQuery) GetTodo(id string) (*Todo, error) {
 	return s.store.GetTodo(id)
 }

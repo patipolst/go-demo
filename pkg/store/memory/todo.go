@@ -10,9 +10,19 @@ import (
 )
 
 type Todo struct {
-	ID   string `json:"id"`
-	Text string `json:"text"`
-	Done bool   `json:"done"`
+	ID     string `json:"id"`
+	Text   string `json:"text"`
+	Done   bool   `json:"done"`
+	UserID string `json:"user"`
+}
+
+func (t *Todo) ToQueryTodo() *query.Todo {
+	return &query.Todo{
+		ID:     t.ID,
+		Text:   t.Text,
+		Done:   t.Done,
+		UserID: t.UserID,
+	}
 }
 
 type TodoStore struct {
@@ -25,20 +35,21 @@ func NewTodoStore() *TodoStore {
 	}
 }
 
-func (s *TodoStore) GetAllTodos() []query.Todo {
-	var todos []query.Todo
+func (s *TodoStore) GetAllTodos() []*query.Todo {
+	var todos []*query.Todo
 	for i := range s.todos {
 		todo := query.Todo{
-			ID:   s.todos[i].ID,
-			Text: s.todos[i].Text,
-			Done: s.todos[i].Done,
+			ID:     s.todos[i].ID,
+			Text:   s.todos[i].Text,
+			Done:   s.todos[i].Done,
+			UserID: s.todos[i].UserID,
 		}
-		todos = append(todos, todo)
+		todos = append(todos, &todo)
 	}
 	return todos
 }
 
-func (s *TodoStore) GetTodo(id string) (query.Todo, error) {
+func (s *TodoStore) GetTodo(id string) (*query.Todo, error) {
 	var todo query.Todo
 
 	for i := range s.todos {
@@ -46,22 +57,24 @@ func (s *TodoStore) GetTodo(id string) (query.Todo, error) {
 			todo.ID = s.todos[i].ID
 			todo.Text = s.todos[i].Text
 			todo.Done = s.todos[i].Done
+			todo.UserID = s.todos[i].UserID
 
-			return todo, nil
+			return &todo, nil
 		}
 	}
-	return todo, errors.New("todo not found")
+	return &todo, errors.New("todo not found")
 }
 
-func (s *TodoStore) CreateTodo(t mutation.NewTodo) error {
+func (s *TodoStore) CreateTodo(t mutation.NewTodo) (*query.Todo, error) {
 	id := fmt.Sprintf("T%d", rand.Int())
 	newTodo := Todo{
-		ID:   id,
-		Text: t.Text,
-		Done: false,
+		ID:     id,
+		Text:   t.Text,
+		Done:   false,
+		UserID: t.UserID,
 	}
 	s.todos[id] = newTodo
-	return nil
+	return newTodo.ToQueryTodo(), nil
 }
 
 func (s *TodoStore) DeleteTodo(id string) {

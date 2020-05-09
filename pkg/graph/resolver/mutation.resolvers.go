@@ -5,8 +5,6 @@ package resolver
 
 import (
 	"context"
-	"fmt"
-	"math/rand"
 
 	"github.com/patipolst/go-demo/pkg/graph/generated"
 	"github.com/patipolst/go-demo/pkg/mutation"
@@ -14,13 +12,7 @@ import (
 )
 
 func (r *mutationResolver) CreateTodo(ctx context.Context, input mutation.NewTodo) (*query.Todo, error) {
-	todo := &query.Todo{
-		Text:   input.Text,
-		ID:     fmt.Sprintf("T%d", rand.Int()),
-		UserID: input.UserID,
-	}
-	r.AllTodos = append(r.AllTodos, todo)
-	return todo, nil
+	return r.TodoMutation.CreateTodo(input), nil
 }
 
 // Mutation returns generated.MutationResolver implementation.
