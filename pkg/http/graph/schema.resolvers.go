@@ -8,8 +8,8 @@ import (
 	"fmt"
 	"math/rand"
 
-	"github.com/patipolst/go-demo/graph/generated"
-	"github.com/patipolst/go-demo/graph/model"
+	"github.com/patipolst/go-demo/pkg/http/graph/generated"
+	"github.com/patipolst/go-demo/pkg/http/graph/model"
 )
 
 func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
@@ -27,7 +27,6 @@ func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
 }
 
 func (r *todoResolver) User(ctx context.Context, obj *model.Todo) (*model.User, error) {
-	fmt.Println("CALLED")
 	return &model.User{ID: obj.UserID, Name: "user " + obj.UserID}, nil
 }
 
