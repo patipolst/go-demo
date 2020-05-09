@@ -8,7 +8,6 @@ import (
 	"github.com/99designs/gqlgen/graphql/handler"
 	"github.com/99designs/gqlgen/graphql/playground"
 	"github.com/patipolst/go-demo/pkg/graph/generated"
-	"github.com/patipolst/go-demo/pkg/graph/model"
 	"github.com/patipolst/go-demo/pkg/graph/resolver"
 	"github.com/patipolst/go-demo/pkg/mutation"
 	"github.com/patipolst/go-demo/pkg/query"
@@ -25,7 +24,7 @@ func Run() {
 	}
 
 	// mockTodos := make([]*model.Todo, 0)
-	var mockTodos []*model.Todo
+	var mockTodos []*query.Todo
 	todoStore := memory.NewTodoStore()
 	todoQuery := query.NewTodoQuery(todoStore)
 	todoMutation := mutation.NewTodoMutation(todoStore)

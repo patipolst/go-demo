@@ -2,24 +2,26 @@ package memory
 
 import (
 	"errors"
+	"fmt"
+	"math/rand"
 
 	"github.com/patipolst/go-demo/pkg/mutation"
 	"github.com/patipolst/go-demo/pkg/query"
 )
 
 type Todo struct {
-	ID   int    `json:"id"`
+	ID   string `json:"id"`
 	Text string `json:"text"`
 	Done bool   `json:"done"`
 }
 
 type TodoStore struct {
-	todos map[int]Todo
+	todos map[string]Todo
 }
 
 func NewTodoStore() *TodoStore {
 	return &TodoStore{
-		make(map[int]Todo),
+		make(map[string]Todo),
 	}
 }
 
@@ -36,7 +38,7 @@ func (s *TodoStore) GetAllTodos() []query.Todo {
 	return todos
 }
 
-func (s *TodoStore) GetTodo(id int) (query.Todo, error) {
+func (s *TodoStore) GetTodo(id string) (query.Todo, error) {
 	var todo query.Todo
 
 	for i := range s.todos {
@@ -52,7 +54,7 @@ func (s *TodoStore) GetTodo(id int) (query.Todo, error) {
 }
 
 func (s *TodoStore) CreateTodo(t mutation.NewTodo) error {
-	id := len(s.todos) + 1
+	id := fmt.Sprintf("T%d", rand.Int())
 	newTodo := Todo{
 		ID:   id,
 		Text: t.Text,
@@ -62,6 +64,6 @@ func (s *TodoStore) CreateTodo(t mutation.NewTodo) error {
 	return nil
 }
 
-func (s *TodoStore) DeleteTodo(id int) {
+func (s *TodoStore) DeleteTodo(id string) {
 	delete(s.todos, id)
 }

@@ -1,4 +1,4 @@
-type User {
+type User @goModel(model: "github.com/patipolst/go-demo/pkg/query.User") {
   id: ID!
   name: String!
 }

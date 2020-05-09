@@ -7,10 +7,10 @@ import (
 	"context"
 
 	"github.com/patipolst/go-demo/pkg/graph/generated"
-	"github.com/patipolst/go-demo/pkg/graph/model"
+	"github.com/patipolst/go-demo/pkg/query"
 )
 
-func (r *queryResolver) Todos(ctx context.Context) ([]*model.Todo, error) {
+func (r *queryResolver) Todos(ctx context.Context) ([]*query.Todo, error) {
 	return r.AllTodos, nil
 }
 

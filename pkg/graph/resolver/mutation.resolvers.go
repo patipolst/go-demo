@@ -9,11 +9,12 @@ import (
 	"math/rand"
 
 	"github.com/patipolst/go-demo/pkg/graph/generated"
-	"github.com/patipolst/go-demo/pkg/graph/model"
+	"github.com/patipolst/go-demo/pkg/mutation"
+	"github.com/patipolst/go-demo/pkg/query"
 )
 
-func (r *mutationResolver) CreateTodo(ctx context.Context, input model.NewTodo) (*model.Todo, error) {
-	todo := &model.Todo{
+func (r *mutationResolver) CreateTodo(ctx context.Context, input mutation.NewTodo) (*query.Todo, error) {
+	todo := &query.Todo{
 		Text:   input.Text,
 		ID:     fmt.Sprintf("T%d", rand.Int()),
 		UserID: input.UserID,

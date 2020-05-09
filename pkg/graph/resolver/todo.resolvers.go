@@ -7,11 +7,11 @@ import (
 	"context"
 
 	"github.com/patipolst/go-demo/pkg/graph/generated"
-	"github.com/patipolst/go-demo/pkg/graph/model"
+	"github.com/patipolst/go-demo/pkg/query"
 )
 
-func (r *todoResolver) User(ctx context.Context, obj *model.Todo) (*model.User, error) {
-	return &model.User{ID: obj.UserID, Name: "user " + obj.UserID}, nil
+func (r *todoResolver) User(ctx context.Context, obj *query.Todo) (*query.User, error) {
+	return &query.User{ID: obj.UserID, Name: "user " + obj.UserID}, nil
 }
 
 // Todo returns generated.TodoResolver implementation.

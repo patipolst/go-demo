@@ -1,11 +1,11 @@
-type Todo {
+type Todo @goModel(model: "github.com/patipolst/go-demo/pkg/query.Todo") {
   id: ID!
   text: String!
   done: Boolean!
   user: User!
 }
 
-input NewTodo {
+input NewTodo @goModel(model: "github.com/patipolst/go-demo/pkg/mutation.NewTodo") {
   text: String!
   userId: String!
 }
