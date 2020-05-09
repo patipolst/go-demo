@@ -9,8 +9,7 @@ type NewTodo struct {
 
 type TodoMutation interface {
 	CreateTodo(NewTodo) *query.Todo
-	// CreateTodo(...NewTodo) // fixme
-	CreateTodos([]NewTodo)
+	CreateTodos([]NewTodo) []*query.Todo
 }
 
 type TodoStore interface {
@@ -30,14 +29,11 @@ func (s *todoMutation) CreateTodo(todo NewTodo) *query.Todo {
 	return t
 }
 
-// func (s *todoMutation) CreateTodo(todo ...NewTodo) {
-// 	for _, t := range todo {
-// 		_ = s.store.CreateTodo(t)
-// 	}
-// }
-
-func (s *todoMutation) CreateTodos(todos []NewTodo) {
-	for _, t := range todos {
-		_, _ = s.store.CreateTodo(t)
+func (s *todoMutation) CreateTodos(todos []NewTodo) []*query.Todo {
+	var created []*query.Todo
+	for _, todo := range todos {
+		t := s.CreateTodo(todo)
+		created = append(created, t)
 	}
+	return created
 }
