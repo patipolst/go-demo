@@ -23,13 +23,11 @@ func Run() {
 		port = defaultPort
 	}
 
-	// mockTodos := make([]*model.Todo, 0)
-	var mockTodos []*query.Todo
 	todoStore := memory.NewTodoStore()
 	todoQuery := query.NewTodoQuery(todoStore)
 	todoMutation := mutation.NewTodoMutation(todoStore)
 
-	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &resolver.Resolver{mockTodos, todoQuery, todoMutation}}))
+	srv := handler.NewDefaultServer(generated.NewExecutableSchema(generated.Config{Resolvers: &resolver.Resolver{todoQuery, todoMutation}}))
 
 	http.Handle("/", playground.Handler("GraphQL playground", "/query"))
 	http.Handle("/query", srv)

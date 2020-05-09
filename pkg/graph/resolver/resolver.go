@@ -12,7 +12,6 @@ import (
 // It serves as dependency injection for your app, add any dependencies you require here.
 
 type Resolver struct {
-	AllTodos     []*query.Todo // fixme
 	TodoQuery    query.TodoQuery
 	TodoMutation mutation.TodoMutation
 }
