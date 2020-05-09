@@ -51,12 +51,12 @@ func (s *TodoStore) GetTodo(id int) (query.Todo, error) {
 	return todo, errors.New("todo not found")
 }
 
-func (s *TodoStore) CreateTodo(t mutation.Todo) error {
+func (s *TodoStore) CreateTodo(t mutation.NewTodo) error {
 	id := len(s.todos) + 1
 	newTodo := Todo{
 		ID:   id,
 		Text: t.Text,
-		Done: t.Done,
+		Done: false,
 	}
 	s.todos[id] = newTodo
 	return nil

@@ -1,17 +1,17 @@
 package mutation
 
-type Todo struct {
-	Text string `json:"text"`
-	Done bool   `json:"done"`
+type NewTodo struct {
+	Text   string `json:"text"`
+	UserID string `json:"userId"`
 }
 
 type TodoMutation interface {
-	CreateTodo(...Todo)
-	CreateTodos([]Todo)
+	CreateTodo(...NewTodo)
+	CreateTodos([]NewTodo)
 }
 
 type TodoStore interface {
-	CreateTodo(Todo) error
+	CreateTodo(NewTodo) error
 }
 
 type todoMutation struct {
@@ -22,13 +22,13 @@ func NewTodoMutation(store TodoStore) TodoMutation {
 	return &todoMutation{store}
 }
 
-func (s *todoMutation) CreateTodo(todo ...Todo) {
+func (s *todoMutation) CreateTodo(todo ...NewTodo) {
 	for _, t := range todo {
 		_ = s.store.CreateTodo(t)
 	}
 }
 
-func (s *todoMutation) CreateTodos(todos []Todo) {
+func (s *todoMutation) CreateTodos(todos []NewTodo) {
 	for _, t := range todos {
 		_ = s.store.CreateTodo(t)
 	}
