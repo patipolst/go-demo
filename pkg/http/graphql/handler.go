@@ -11,7 +11,7 @@ import (
 	"github.com/patipolst/go-demo/pkg/graph/resolver"
 	"github.com/patipolst/go-demo/pkg/mutation"
 	"github.com/patipolst/go-demo/pkg/query"
-	"github.com/patipolst/go-demo/pkg/store/memory"
+	"github.com/patipolst/go-demo/pkg/store/db"
 )
 
 const defaultPort = "8080"
@@ -23,7 +23,8 @@ func Run() {
 		port = defaultPort
 	}
 
-	todoStore := memory.NewTodoStore()
+	todoStore, _ := db.NewTodoStore()
+	// todoStore := memory.NewTodoStore()
 	todoQuery := query.NewTodoQuery(todoStore)
 	todoMutation := mutation.NewTodoMutation(todoStore)
 
