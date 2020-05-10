@@ -4,7 +4,7 @@ import "github.com/patipolst/go-demo/pkg/query"
 
 type NewTodo struct {
 	Text   string `json:"text"`
-	UserID string `json:"userId"`
+	UserID int    `json:"userId"`
 }
 
 type TodoMutation interface {

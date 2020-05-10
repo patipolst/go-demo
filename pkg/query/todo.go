@@ -1,20 +1,20 @@
 package query
 
 type Todo struct {
-	ID     string `json:"id"`
+	ID     int    `json:"id"`
 	Text   string `json:"text"`
 	Done   bool   `json:"done"`
-	UserID string `json:"user"`
+	UserID int    `json:"user"`
 }
 
 type TodoQuery interface {
 	GetTodos() []*Todo
-	GetTodo(string) (*Todo, error)
+	GetTodo(int) (*Todo, error)
 }
 
 type TodoStore interface {
 	GetAllTodos() []*Todo
-	GetTodo(string) (*Todo, error)
+	GetTodo(int) (*Todo, error)
 }
 
 type todoQuery struct {
@@ -29,6 +29,6 @@ func (s *todoQuery) GetTodos() []*Todo {
 	return s.store.GetAllTodos()
 }
 
-func (s *todoQuery) GetTodo(id string) (*Todo, error) {
+func (s *todoQuery) GetTodo(id int) (*Todo, error) {
 	return s.store.GetTodo(id)
 }

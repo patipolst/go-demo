@@ -5,13 +5,14 @@ package resolver
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/patipolst/go-demo/pkg/graph/generated"
 	"github.com/patipolst/go-demo/pkg/query"
 )
 
 func (r *todoResolver) User(ctx context.Context, obj *query.Todo) (*query.User, error) {
-	return &query.User{ID: obj.UserID, Name: "user " + obj.UserID}, nil
+	return &query.User{ID: obj.UserID, Name: fmt.Sprintf("User %d", obj.UserID)}, nil
 }
 
 // Todo returns generated.TodoResolver implementation.

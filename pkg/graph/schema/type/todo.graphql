@@ -7,5 +7,5 @@ type Todo @goModel(model: "github.com/patipolst/go-demo/pkg/query.Todo") {
 
 input NewTodo @goModel(model: "github.com/patipolst/go-demo/pkg/mutation.NewTodo") {
   text: String!
-  userId: String!
+  userId: Int!
 }

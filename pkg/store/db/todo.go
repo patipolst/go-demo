@@ -1,9 +1,6 @@
 package db
 
 import (
-	"fmt"
-	"math/rand"
-
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/patipolst/go-demo/pkg/mutation"
@@ -11,15 +8,15 @@ import (
 )
 
 type Todo struct {
-	ID     string
+	gorm.Model
 	Text   string
 	Done   bool
-	UserID string
+	UserID int
 }
 
 func (t *Todo) ToQueryTodo() *query.Todo {
 	return &query.Todo{
-		ID:     t.ID,
+		ID:     int(t.ID),
 		Text:   t.Text,
 		Done:   t.Done,
 		UserID: t.UserID,
@@ -54,7 +51,7 @@ func (s *TodoStore) GetAllTodos() []*query.Todo {
 	return todos
 }
 
-func (s *TodoStore) GetTodo(id string) (*query.Todo, error) {
+func (s *TodoStore) GetTodo(id int) (*query.Todo, error) {
 	var t Todo
 	s.db.First(&t, id)
 	return t.ToQueryTodo(), nil
@@ -62,7 +59,6 @@ func (s *TodoStore) GetTodo(id string) (*query.Todo, error) {
 
 func (s *TodoStore) CreateTodo(t mutation.NewTodo) (*query.Todo, error) {
 	newTodo := Todo{
-		ID:     fmt.Sprintf("T%d", rand.Int()),
 		Text:   t.Text,
 		Done:   false,
 		UserID: t.UserID,
@@ -71,7 +67,7 @@ func (s *TodoStore) CreateTodo(t mutation.NewTodo) (*query.Todo, error) {
 	return newTodo.ToQueryTodo(), nil
 }
 
-func (s *TodoStore) DeleteTodo(id string) {
+func (s *TodoStore) DeleteTodo(id int) {
 	var t Todo
 	s.db.First(&t, id)
 	s.db.Delete(&t)
