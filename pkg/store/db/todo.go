@@ -1,13 +1,17 @@
 package db
 
 import (
+	"fmt"
+	"math/rand"
+
 	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/patipolst/go-demo/pkg/mutation"
 	"github.com/patipolst/go-demo/pkg/query"
 )
 
 type Todo struct {
-	gorm.Model
+	ID     string
 	Text   string
 	Done   bool
 	UserID string
@@ -58,6 +62,7 @@ func (s *TodoStore) GetTodo(id string) (*query.Todo, error) {
 
 func (s *TodoStore) CreateTodo(t mutation.NewTodo) (*query.Todo, error) {
 	newTodo := Todo{
+		ID:     fmt.Sprintf("T%d", rand.Int()),
 		Text:   t.Text,
 		Done:   false,
 		UserID: t.UserID,
