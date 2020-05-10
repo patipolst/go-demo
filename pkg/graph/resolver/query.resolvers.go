@@ -11,7 +11,7 @@ import (
 )
 
 func (r *queryResolver) Todos(ctx context.Context) ([]*query.Todo, error) {
-	return r.TodoQuery.GetTodos(), nil
+	return r.TodoService.Query.GetTodos(), nil
 }
 
 // Query returns generated.QueryResolver implementation.

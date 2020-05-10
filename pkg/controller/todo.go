@@ -6,26 +6,25 @@ import (
 
 	"github.com/gofiber/fiber"
 	"github.com/patipolst/go-demo/pkg/mutation"
-	"github.com/patipolst/go-demo/pkg/query"
+	"github.com/patipolst/go-demo/pkg/service"
 )
 
 type TodoController struct {
-	q query.TodoQuery
-	m mutation.TodoMutation
+	s *service.TodoService
 }
 
-func NewTodoController(q query.TodoQuery, m mutation.TodoMutation) TodoController {
-	return TodoController{q, m}
+func NewTodoController(s *service.TodoService) TodoController {
+	return TodoController{s}
 }
 
 func (ctr *TodoController) GetTodos(ctx *fiber.Ctx) {
-	todos := ctr.q.GetTodos()
+	todos := ctr.s.Query.GetTodos()
 	ctx.JSON(todos)
 }
 
 func (ctr *TodoController) GetTodo(ctx *fiber.Ctx) {
 	id := extractID(ctx)
-	todo, _ := ctr.q.GetTodo(id)
+	todo, _ := ctr.s.Query.GetTodo(id)
 	ctx.JSON(todo)
 }
 
@@ -34,7 +33,7 @@ func (ctr *TodoController) CreateTodo(ctx *fiber.Ctx) {
 	if err := ctx.BodyParser(newTodo); err != nil {
 		log.Fatal(err)
 	}
-	created := ctr.m.CreateTodo(*newTodo)
+	created := ctr.s.Mutation.CreateTodo(*newTodo)
 	ctx.JSON(created)
 }
 

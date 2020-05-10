@@ -12,7 +12,7 @@ import (
 )
 
 func (r *mutationResolver) CreateTodo(ctx context.Context, input mutation.NewTodo) (*query.Todo, error) {
-	return r.TodoMutation.CreateTodo(input), nil
+	return r.TodoService.Mutation.CreateTodo(input), nil
 }
 
 // Mutation returns generated.MutationResolver implementation.

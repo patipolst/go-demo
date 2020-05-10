@@ -5,13 +5,12 @@ import (
 
 	"github.com/gofiber/fiber"
 	"github.com/patipolst/go-demo/pkg/controller"
-	"github.com/patipolst/go-demo/pkg/mutation"
-	"github.com/patipolst/go-demo/pkg/query"
+	"github.com/patipolst/go-demo/pkg/service"
 )
 
-func Run(q query.TodoQuery, m mutation.TodoMutation) {
+func Run(s *service.TodoService) {
 	app := fiber.New()
-	c := controller.NewTodoController(q, m)
+	c := controller.NewTodoController(s)
 
 	v1 := app.Group("/v1")
 	v1.Get("/todos", c.GetTodos)
