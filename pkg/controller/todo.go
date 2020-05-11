@@ -12,8 +12,8 @@ type TodoController struct {
 	s *service.TodoService
 }
 
-func NewTodoController(s *service.TodoService) TodoController {
-	return TodoController{s}
+func NewTodoController(s *service.TodoService) *TodoController {
+	return &TodoController{s}
 }
 
 func (ctr *TodoController) GetTodos(ctx *fiber.Ctx) {

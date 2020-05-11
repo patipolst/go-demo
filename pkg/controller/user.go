@@ -12,8 +12,8 @@ type UserController struct {
 	s *service.UserService
 }
 
-func NewUserController(s *service.UserService) UserController {
-	return UserController{s}
+func NewUserController(s *service.UserService) *UserController {
+	return &UserController{s}
 }
 
 func (ctr *UserController) GetUsers(ctx *fiber.Ctx) {

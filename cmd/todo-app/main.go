@@ -9,8 +9,10 @@ import (
 func main() {
 	// todoStore, _ := db.NewTodoStore()
 	todoStore := memory.NewTodoStore()
+	userStore := memory.NewUserStore()
 	// todoService := service.NewTodoDBService(todoStore)
 	todoService := service.NewTodoMemoryService(todoStore)
+	userService := service.NewUserMemoryService(userStore)
 	// graphql.Run(todoService)
-	rest.Run(todoService)
+	rest.Run(todoService, userService)
 }

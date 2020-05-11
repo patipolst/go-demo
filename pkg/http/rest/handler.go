@@ -5,18 +5,18 @@ import (
 
 	"github.com/gofiber/fiber"
 	"github.com/patipolst/go-demo/pkg/controller"
+	"github.com/patipolst/go-demo/pkg/http/rest/route"
 	"github.com/patipolst/go-demo/pkg/service"
 )
 
-func Run(s *service.TodoService) {
+func Run(ts *service.TodoService, us *service.UserService) {
 	app := fiber.New()
-	c := controller.NewTodoController(s)
 
-	v1 := app.Group("/v1")
-	v1.Get("/todos", c.GetTodos)
-	v1.Get("/todos/:id", c.GetTodo)
-	v1.Post("/todos", c.CreateTodo)
-	v1.Delete("/todos/:id", c.DeleteTodo)
+	tc := controller.NewTodoController(ts)
+	uc := controller.NewUserController(us)
+
+	route.Todo(app, tc)
+	route.User(app, uc)
 
 	const port = 3000
 	log.Printf("connect to http://localhost:%d/ for REST api", port)
