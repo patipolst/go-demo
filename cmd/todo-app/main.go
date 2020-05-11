@@ -1,7 +1,7 @@
 package main
 
 import (
-	"github.com/patipolst/go-demo/pkg/http"
+	"github.com/patipolst/go-demo/pkg/api"
 	"github.com/patipolst/go-demo/pkg/service"
 	"github.com/patipolst/go-demo/pkg/store/database"
 )
@@ -16,5 +16,5 @@ func main() {
 	todoService := service.NewTodoDBService(todoStore)
 	userService := service.NewUserDBService(userStore)
 	// graphql.Run(todoService)
-	http.Run(todoService, userService)
+	api.Run(todoService, userService)
 }

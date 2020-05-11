@@ -2,7 +2,7 @@ package route
 
 import (
 	"github.com/gofiber/fiber"
-	"github.com/patipolst/go-demo/pkg/http/controller"
+	"github.com/patipolst/go-demo/pkg/api/controller"
 )
 
 func Todo(app *fiber.App, c *controller.TodoController) {

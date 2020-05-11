@@ -1,11 +1,11 @@
-package http
+package api
 
 import (
 	"log"
 
 	"github.com/gofiber/fiber"
-	"github.com/patipolst/go-demo/pkg/http/controller"
-	"github.com/patipolst/go-demo/pkg/http/route"
+	"github.com/patipolst/go-demo/pkg/api/route"
+	"github.com/patipolst/go-demo/pkg/api/controller"
 	"github.com/patipolst/go-demo/pkg/service"
 )
 
