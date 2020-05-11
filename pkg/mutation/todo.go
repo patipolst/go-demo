@@ -3,8 +3,8 @@ package mutation
 import "github.com/patipolst/go-demo/pkg/query"
 
 type NewTodo struct {
-	Text   string `json:"text"`
-	UserID int    `json:"userId"`
+	Text   string
+	UserID int
 }
 
 type TodoMutation interface {
@@ -24,15 +24,15 @@ func NewTodoMutation(store TodoStore) TodoMutation {
 	return &todoMutation{store}
 }
 
-func (s *todoMutation) CreateTodo(todo NewTodo) *query.Todo {
-	t, _ := s.store.CreateTodo(todo)
+func (m *todoMutation) CreateTodo(todo NewTodo) *query.Todo {
+	t, _ := m.store.CreateTodo(todo)
 	return t
 }
 
-func (s *todoMutation) CreateTodos(todos []NewTodo) []*query.Todo {
+func (m *todoMutation) CreateTodos(todos []NewTodo) []*query.Todo {
 	var created []*query.Todo
 	for _, todo := range todos {
-		t := s.CreateTodo(todo)
+		t := m.CreateTodo(todo)
 		created = append(created, t)
 	}
 	return created

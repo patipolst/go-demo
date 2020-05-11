@@ -1,10 +1,10 @@
 package query
 
 type Todo struct {
-	ID     int    `json:"id"`
-	Text   string `json:"text"`
-	Done   bool   `json:"done"`
-	UserID int    `json:"user"`
+	ID     int
+	Text   string
+	Done   bool
+	UserID int
 }
 
 type TodoQuery interface {
@@ -25,10 +25,10 @@ func NewTodoQuery(store TodoStore) TodoQuery {
 	return &todoQuery{store}
 }
 
-func (s *todoQuery) GetTodos() []*Todo {
-	return s.store.GetAllTodos()
+func (q *todoQuery) GetTodos() []*Todo {
+	return q.store.GetAllTodos()
 }
 
-func (s *todoQuery) GetTodo(id int) (*Todo, error) {
-	return s.store.GetTodo(id)
+func (q *todoQuery) GetTodo(id int) (*Todo, error) {
+	return q.store.GetTodo(id)
 }
