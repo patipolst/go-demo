@@ -3,7 +3,7 @@ package mutation
 import "github.com/patipolst/go-demo/pkg/query"
 
 type NewUser struct {
-	Name int
+	Name string `json:"name"`
 }
 
 type UserMutation interface {

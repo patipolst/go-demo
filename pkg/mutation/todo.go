@@ -3,8 +3,8 @@ package mutation
 import "github.com/patipolst/go-demo/pkg/query"
 
 type NewTodo struct {
-	Text   string
-	UserID int
+	Text   string `json:"text"`
+	UserID int    `json:"userId"`
 }
 
 type TodoMutation interface {

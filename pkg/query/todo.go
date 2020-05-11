@@ -1,10 +1,10 @@
 package query
 
 type Todo struct {
-	ID     int
-	Text   string
-	Done   bool
-	UserID int
+	ID     int    `json:"id"`
+	Text   string `json:"text"`
+	Done   bool   `json:"done"`
+	UserID int    `json:"userId"`
 }
 
 type TodoQuery interface {
