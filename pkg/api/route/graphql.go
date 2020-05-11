@@ -7,16 +7,14 @@ import (
 	"github.com/gofiber/fiber"
 	"github.com/patipolst/go-demo/pkg/graph/generated"
 	"github.com/patipolst/go-demo/pkg/graph/resolver"
-	"github.com/patipolst/go-demo/pkg/service"
 )
 
-func GraphQL(app *fiber.App, ts *service.TodoService, us *service.UserService) {
-	app.Post("/query", graphqlHandler(ts, us))
+func GraphQL(app *fiber.App, r *resolver.Resolver) {
+	app.Post("/query", graphqlHandler(r))
 	app.Get("/", playgroundHandler())
 }
 
-func graphqlHandler(ts *service.TodoService, us *service.UserService) func(*fiber.Ctx) {
-	r := resolver.New(ts, us)
+func graphqlHandler(r *resolver.Resolver) func(*fiber.Ctx) {
 	es := generated.NewExecutableSchema(generated.Config{Resolvers: r})
 	h := handler.NewDefaultServer(es)
 	return adaptor.HTTPHandler(h)

@@ -15,6 +15,5 @@ func main() {
 	userStore := database.NewUserStore(db)
 	todoService := service.NewTodoDBService(todoStore)
 	userService := service.NewUserDBService(userStore)
-	// graphql.Run(todoService)
 	api.Run(todoService, userService)
 }

@@ -4,8 +4,9 @@ import (
 	"log"
 
 	"github.com/gofiber/fiber"
-	"github.com/patipolst/go-demo/pkg/api/route"
 	"github.com/patipolst/go-demo/pkg/api/controller"
+	"github.com/patipolst/go-demo/pkg/api/route"
+	"github.com/patipolst/go-demo/pkg/graph/resolver"
 	"github.com/patipolst/go-demo/pkg/service"
 )
 
@@ -14,10 +15,11 @@ func Run(ts *service.TodoService, us *service.UserService) {
 
 	tc := controller.NewTodoController(ts)
 	uc := controller.NewUserController(us)
+	r := resolver.New(ts, us)
 
 	route.Todo(app, tc)
 	route.User(app, uc)
-	route.GraphQL(app, ts, us)
+	route.GraphQL(app, r)
 
 	const port = 3000
 	log.Printf("Connect to http://localhost:%d/ for api", port)
