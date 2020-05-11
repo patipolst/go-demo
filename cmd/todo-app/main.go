@@ -3,16 +3,18 @@ package main
 import (
 	"github.com/patipolst/go-demo/pkg/http/rest"
 	"github.com/patipolst/go-demo/pkg/service"
-	"github.com/patipolst/go-demo/pkg/store/memory"
+	"github.com/patipolst/go-demo/pkg/store/database"
 )
 
 func main() {
-	// todoStore, _ := db.NewTodoStore()
-	todoStore := memory.NewTodoStore()
-	userStore := memory.NewUserStore()
-	// todoService := service.NewTodoDBService(todoStore)
-	todoService := service.NewTodoMemoryService(todoStore)
-	userService := service.NewUserMemoryService(userStore)
+	db := database.New()
+	database.Migrate(db)
+	defer db.Close()
+
+	todoStore := database.NewTodoStore(db)
+	userStore := database.NewUserStore(db)
+	todoService := service.NewTodoDBService(todoStore)
+	userService := service.NewUserDBService(userStore)
 	// graphql.Run(todoService)
 	rest.Run(todoService, userService)
 }

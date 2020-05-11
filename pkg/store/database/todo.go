@@ -1,8 +1,7 @@
-package db
+package database
 
 import (
 	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/patipolst/go-demo/pkg/mutation"
 	"github.com/patipolst/go-demo/pkg/query"
 )
@@ -27,18 +26,8 @@ type TodoStore struct {
 	db *gorm.DB
 }
 
-func NewTodoStore() (*TodoStore, error) {
-	var err error
-	s := new(TodoStore)
-
-	s.db, err = gorm.Open("sqlite3", "todos.db")
-	if err != nil {
-		return nil, err
-	}
-
-	s.db.AutoMigrate(&Todo{})
-
-	return s, nil
+func NewTodoStore(db *gorm.DB) *TodoStore {
+	return &TodoStore{db}
 }
 
 func (s *TodoStore) GetAllTodos() []*query.Todo {

@@ -1,8 +1,7 @@
-package db
+package database
 
 import (
 	"github.com/jinzhu/gorm"
-	_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"github.com/patipolst/go-demo/pkg/mutation"
 	"github.com/patipolst/go-demo/pkg/query"
 )
@@ -23,18 +22,8 @@ type UserStore struct {
 	db *gorm.DB
 }
 
-func NewUserStore() (*UserStore, error) {
-	var err error
-	s := new(UserStore)
-
-	s.db, err = gorm.Open("sqlite3", "users.db")
-	if err != nil {
-		return nil, err
-	}
-
-	s.db.AutoMigrate(&User{})
-
-	return s, nil
+func NewUserStore(db *gorm.DB) *UserStore {
+	return &UserStore{db}
 }
 
 func (s *UserStore) GetAllUsers() []*query.User {
