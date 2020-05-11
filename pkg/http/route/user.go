@@ -2,7 +2,7 @@ package route
 
 import (
 	"github.com/gofiber/fiber"
-	"github.com/patipolst/go-demo/pkg/http/rest/controller"
+	"github.com/patipolst/go-demo/pkg/http/controller"
 )
 
 func User(app *fiber.App, c *controller.UserController) {

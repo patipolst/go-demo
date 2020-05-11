@@ -1,11 +1,11 @@
-package rest
+package http
 
 import (
 	"log"
 
 	"github.com/gofiber/fiber"
-	"github.com/patipolst/go-demo/pkg/http/rest/controller"
-	"github.com/patipolst/go-demo/pkg/http/rest/route"
+	"github.com/patipolst/go-demo/pkg/http/controller"
+	"github.com/patipolst/go-demo/pkg/http/route"
 	"github.com/patipolst/go-demo/pkg/service"
 )
 
@@ -20,6 +20,6 @@ func Run(ts *service.TodoService, us *service.UserService) {
 	route.GraphQL(app, ts, us)
 
 	const port = 3000
-	log.Printf("connect to http://localhost:%d/ for REST api", port)
+	log.Printf("Connect to http://localhost:%d/ for api", port)
 	app.Listen(port)
 }
