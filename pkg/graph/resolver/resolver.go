@@ -12,4 +12,5 @@ import (
 
 type Resolver struct {
 	TodoService *service.TodoService
+	UserService *service.UserService
 }
