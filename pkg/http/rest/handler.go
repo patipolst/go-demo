@@ -17,6 +17,7 @@ func Run(ts *service.TodoService, us *service.UserService) {
 
 	route.Todo(app, tc)
 	route.User(app, uc)
+	route.GraphQL(app, ts, us)
 
 	const port = 3000
 	log.Printf("connect to http://localhost:%d/ for REST api", port)
