@@ -14,6 +14,10 @@ func (r *queryResolver) Todos(ctx context.Context) ([]*query.Todo, error) {
 	return r.TodoService.Query.GetTodos(), nil
 }
 
+func (r *queryResolver) Todo(ctx context.Context, id int) (*query.Todo, error) {
+	return r.TodoService.Query.GetTodo(id)
+}
+
 // Query returns generated.QueryResolver implementation.
 func (r *Resolver) Query() generated.QueryResolver { return &queryResolver{r} }
 

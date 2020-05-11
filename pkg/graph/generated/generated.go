@@ -50,6 +50,7 @@ type ComplexityRoot struct {
 	}
 
 	Query struct {
+		Todo  func(childComplexity int, id int) int
 		Todos func(childComplexity int) int
 	}
 
@@ -71,6 +72,7 @@ type MutationResolver interface {
 }
 type QueryResolver interface {
 	Todos(ctx context.Context) ([]*query.Todo, error)
+	Todo(ctx context.Context, id int) (*query.Todo, error)
 }
 type TodoResolver interface {
 	User(ctx context.Context, obj *query.Todo) (*query.User, error)
@@ -102,6 +104,18 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 		}
 
 		return e.complexity.Mutation.CreateTodo(childComplexity, args["input"].(mutation.NewTodo)), true
+
+	case "Query.todo":
+		if e.complexity.Query.Todo == nil {
+			break
+		}
+
+		args, err := ec.field_Query_todo_args(context.TODO(), rawArgs)
+		if err != nil {
+			return 0, false
+		}
+
+		return e.complexity.Query.Todo(childComplexity, args["id"].(int)), true
 
 	case "Query.todos":
 		if e.complexity.Query.Todos == nil {
@@ -230,6 +244,7 @@ directive @goField(forceResolver: Boolean, name: String) on INPUT_FIELD_DEFINITI
 }`, BuiltIn: false},
 	&ast.Source{Name: "schema/query.graphql", Input: `type Query {
   todos: [Todo!]!
+  todo(id: Int!): Todo
 }`, BuiltIn: false},
 	&ast.Source{Name: "schema/type/todo.graphql", Input: `type Todo @goModel(model: "github.com/patipolst/go-demo/pkg/query.Todo") {
   id: ID!
@@ -278,6 +293,20 @@ func (ec *executionContext) field_Query___type_args(ctx context.Context, rawArgs
 		}
 	}
 	args["name"] = arg0
+	return args, nil
+}
+
+func (ec *executionContext) field_Query_todo_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
+	var err error
+	args := map[string]interface{}{}
+	var arg0 int
+	if tmp, ok := rawArgs["id"]; ok {
+		arg0, err = ec.unmarshalNInt2int(ctx, tmp)
+		if err != nil {
+			return nil, err
+		}
+	}
+	args["id"] = arg0
 	return args, nil
 }
 
@@ -390,6 +419,44 @@ func (ec *executionContext) _Query_todos(ctx context.Context, field graphql.Coll
 	res := resTmp.([]*query.Todo)
 	fc.Result = res
 	return ec.marshalNTodo2ᚕᚖgithubᚗcomᚋpatipolstᚋgoᚑdemoᚋpkgᚋqueryᚐTodoᚄ(ctx, field.Selections, res)
+}
+
+func (ec *executionContext) _Query_todo(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
+	defer func() {
+		if r := recover(); r != nil {
+			ec.Error(ctx, ec.Recover(ctx, r))
+			ret = graphql.Null
+		}
+	}()
+	fc := &graphql.FieldContext{
+		Object:   "Query",
+		Field:    field,
+		Args:     nil,
+		IsMethod: true,
+	}
+
+	ctx = graphql.WithFieldContext(ctx, fc)
+	rawArgs := field.ArgumentMap(ec.Variables)
+	args, err := ec.field_Query_todo_args(ctx, rawArgs)
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	fc.Args = args
+	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
+		ctx = rctx // use context from middleware stack in children
+		return ec.resolvers.Query().Todo(rctx, args["id"].(int))
+	})
+	if err != nil {
+		ec.Error(ctx, err)
+		return graphql.Null
+	}
+	if resTmp == nil {
+		return graphql.Null
+	}
+	res := resTmp.(*query.Todo)
+	fc.Result = res
+	return ec.marshalOTodo2ᚖgithubᚗcomᚋpatipolstᚋgoᚑdemoᚋpkgᚋqueryᚐTodo(ctx, field.Selections, res)
 }
 
 func (ec *executionContext) _Query___type(ctx context.Context, field graphql.CollectedField) (ret graphql.Marshaler) {
@@ -1812,6 +1879,17 @@ func (ec *executionContext) _Query(ctx context.Context, sel ast.SelectionSet) gr
 				}
 				return res
 			})
+		case "todo":
+			field := field
+			out.Concurrently(i, func() (res graphql.Marshaler) {
+				defer func() {
+					if r := recover(); r != nil {
+						ec.Error(ctx, ec.Recover(ctx, r))
+					}
+				}()
+				res = ec._Query_todo(ctx, field)
+				return res
+			})
 		case "__type":
 			out.Values[i] = ec._Query___type(ctx, field)
 		case "__schema":
@@ -2582,6 +2660,17 @@ func (ec *executionContext) marshalOString2ᚖstring(ctx context.Context, sel as
 		return graphql.Null
 	}
 	return ec.marshalOString2string(ctx, sel, *v)
+}
+
+func (ec *executionContext) marshalOTodo2githubᚗcomᚋpatipolstᚋgoᚑdemoᚋpkgᚋqueryᚐTodo(ctx context.Context, sel ast.SelectionSet, v query.Todo) graphql.Marshaler {
+	return ec._Todo(ctx, sel, &v)
+}
+
+func (ec *executionContext) marshalOTodo2ᚖgithubᚗcomᚋpatipolstᚋgoᚑdemoᚋpkgᚋqueryᚐTodo(ctx context.Context, sel ast.SelectionSet, v *query.Todo) graphql.Marshaler {
+	if v == nil {
+		return graphql.Null
+	}
+	return ec._Todo(ctx, sel, v)
 }
 
 func (ec *executionContext) marshalO__EnumValue2ᚕgithubᚗcomᚋ99designsᚋgqlgenᚋgraphqlᚋintrospectionᚐEnumValueᚄ(ctx context.Context, sel ast.SelectionSet, v []introspection.EnumValue) graphql.Marshaler {
