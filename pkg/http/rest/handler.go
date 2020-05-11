@@ -4,7 +4,7 @@ import (
 	"log"
 
 	"github.com/gofiber/fiber"
-	"github.com/patipolst/go-demo/pkg/controller"
+	"github.com/patipolst/go-demo/pkg/http/rest/controller"
 	"github.com/patipolst/go-demo/pkg/http/rest/route"
 	"github.com/patipolst/go-demo/pkg/service"
 )
