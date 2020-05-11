@@ -14,3 +14,7 @@ type Resolver struct {
 	TodoService *service.TodoService
 	UserService *service.UserService
 }
+
+func New(ts *service.TodoService, us *service.UserService) *Resolver {
+	return &Resolver{ts, us}
+}
