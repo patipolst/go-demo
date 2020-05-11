@@ -5,6 +5,7 @@ package resolver
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/patipolst/go-demo/pkg/graph/generated"
 	"github.com/patipolst/go-demo/pkg/query"
@@ -16,6 +17,14 @@ func (r *queryResolver) Todos(ctx context.Context) ([]*query.Todo, error) {
 
 func (r *queryResolver) Todo(ctx context.Context, id int) (*query.Todo, error) {
 	return r.TodoService.Query.GetTodo(id)
+}
+
+func (r *queryResolver) Users(ctx context.Context) ([]*query.User, error) {
+	panic(fmt.Errorf("not implemented"))
+}
+
+func (r *queryResolver) User(ctx context.Context, id int) (*query.User, error) {
+	panic(fmt.Errorf("not implemented"))
 }
 
 // Query returns generated.QueryResolver implementation.

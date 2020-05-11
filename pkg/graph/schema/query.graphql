@@ -1,4 +1,7 @@
 type Query {
   todos: [Todo!]!
   todo(id: Int!): Todo
+
+  users: [User!]!
+  user(id: Int!): User
 }
