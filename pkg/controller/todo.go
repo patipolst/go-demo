@@ -2,7 +2,6 @@ package controller
 
 import (
 	"log"
-	"strconv"
 
 	"github.com/gofiber/fiber"
 	"github.com/patipolst/go-demo/pkg/mutation"
@@ -42,10 +41,4 @@ func (ctr *TodoController) DeleteTodo(ctx *fiber.Ctx) {
 	ctx.JSON(fiber.Map{
 		"ok": true,
 	})
-}
-
-func extractID(ctx *fiber.Ctx) int {
-	param := ctx.Params("id")
-	id, _ := strconv.Atoi(param) // todo: error handling
-	return id
 }
