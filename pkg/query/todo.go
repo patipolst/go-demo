@@ -21,7 +21,7 @@ type todoQuery struct {
 	store TodoQueryStore
 }
 
-func NewTodoQuery(store TodoQueryStore) TodoQuery {
+func NewTodo(store TodoQueryStore) TodoQuery {
 	return &todoQuery{store}
 }
 

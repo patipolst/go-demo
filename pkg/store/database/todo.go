@@ -26,7 +26,7 @@ type todoStore struct {
 	db *gorm.DB
 }
 
-func NewTodoStore(db *gorm.DB) *todoStore {
+func NewTodo(db *gorm.DB) *todoStore {
 	return &todoStore{db}
 }
 

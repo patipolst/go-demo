@@ -27,7 +27,7 @@ type todoStore struct {
 	todos map[int]Todo
 }
 
-func NewTodoStore() *todoStore {
+func NewTodo() *todoStore {
 	return &todoStore{
 		make(map[int]Todo),
 	}

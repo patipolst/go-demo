@@ -20,7 +20,7 @@ type todoMutation struct {
 	store TodoMutationStore
 }
 
-func NewTodoMutation(store TodoMutationStore) TodoMutation {
+func NewTodo(store TodoMutationStore) TodoMutation {
 	return &todoMutation{store}
 }
 

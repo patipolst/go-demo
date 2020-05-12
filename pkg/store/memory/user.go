@@ -23,7 +23,7 @@ type userStore struct {
 	users map[int]User
 }
 
-func NewUserStore() *userStore {
+func NewUser() *userStore {
 	return &userStore{
 		make(map[int]User),
 	}

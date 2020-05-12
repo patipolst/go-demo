@@ -22,7 +22,7 @@ type userStore struct {
 	db *gorm.DB
 }
 
-func NewUserStore(db *gorm.DB) *userStore {
+func NewUser(db *gorm.DB) *userStore {
 	return &userStore{db}
 }
 

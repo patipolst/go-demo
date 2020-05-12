@@ -11,11 +11,9 @@ func main() {
 	database.Migrate(db)
 	defer db.Close()
 
-	todoStore := database.NewTodoStore(db)
-	userStore := database.NewUserStore(db)
-	// todoStore := memory.NewTodoStore()
-	// userStore := memory.NewUserStore()
-	todoService := service.NewTodoService(todoStore)
-	userService := service.NewUserService(userStore)
+	todoStore := database.NewTodo(db)
+	userStore := database.NewUser(db)
+	todoService := service.NewTodo(todoStore)
+	userService := service.NewUser(userStore)
 	api.Run(todoService, userService)
 }

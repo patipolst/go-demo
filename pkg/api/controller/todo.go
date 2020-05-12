@@ -9,10 +9,10 @@ import (
 )
 
 type Todo struct {
-	s *service.TodoService
+	s *service.Todo
 }
 
-func NewTodo(s *service.TodoService) *Todo {
+func NewTodo(s *service.Todo) *Todo {
 	return &Todo{s}
 }
 

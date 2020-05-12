@@ -19,7 +19,7 @@ type userMutation struct {
 	store UserMutationStore
 }
 
-func NewUserMutation(store UserMutationStore) UserMutation {
+func NewUser(store UserMutationStore) UserMutation {
 	return &userMutation{store}
 }
 

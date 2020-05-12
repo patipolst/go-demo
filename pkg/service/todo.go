@@ -6,13 +6,13 @@ import (
 	"github.com/patipolst/go-demo/pkg/store"
 )
 
-type TodoService struct {
+type Todo struct {
 	Query    query.TodoQuery
 	Mutation mutation.TodoMutation
 }
 
-func NewTodoService(s store.TodoStore) *TodoService {
-	q := query.NewTodoQuery(s)
-	m := mutation.NewTodoMutation(s)
-	return &TodoService{q, m}
+func NewTodo(s store.TodoStore) *Todo {
+	q := query.NewTodo(s)
+	m := mutation.NewTodo(s)
+	return &Todo{q, m}
 }

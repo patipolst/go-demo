@@ -19,7 +19,7 @@ type userQuery struct {
 	store UserQueryStore
 }
 
-func NewUserQuery(store UserQueryStore) UserQuery {
+func NewUser(store UserQueryStore) UserQuery {
 	return &userQuery{store}
 }
 

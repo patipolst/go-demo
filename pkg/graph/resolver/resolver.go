@@ -11,10 +11,10 @@ import (
 // It serves as dependency injection for your app, add any dependencies you require here.
 
 type Resolver struct {
-	TodoService *service.TodoService
-	UserService *service.UserService
+	TodoService *service.Todo
+	UserService *service.User
 }
 
-func New(ts *service.TodoService, us *service.UserService) *Resolver {
+func New(ts *service.Todo, us *service.User) *Resolver {
 	return &Resolver{ts, us}
 }

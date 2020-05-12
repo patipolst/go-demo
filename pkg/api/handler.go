@@ -10,7 +10,7 @@ import (
 	"github.com/patipolst/go-demo/pkg/service"
 )
 
-func Run(ts *service.TodoService, us *service.UserService) {
+func Run(ts *service.Todo, us *service.User) {
 	app := fiber.New()
 
 	tc := controller.NewTodo(ts)
