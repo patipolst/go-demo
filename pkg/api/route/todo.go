@@ -5,7 +5,7 @@ import (
 	"github.com/patipolst/go-demo/pkg/api/controller"
 )
 
-func Todo(app *fiber.App, c *controller.TodoController) {
+func Todo(app *fiber.App, c *controller.Todo) {
 	v1 := app.Group("/v1")
 	todoV1 := v1.Group("/todos")
 	todoV1.Get("/", c.GetTodos)

@@ -8,26 +8,26 @@ import (
 	"github.com/patipolst/go-demo/pkg/service"
 )
 
-type UserController struct {
+type User struct {
 	s *service.UserService
 }
 
-func NewUserController(s *service.UserService) *UserController {
-	return &UserController{s}
+func NewUser(s *service.UserService) *User {
+	return &User{s}
 }
 
-func (ctr *UserController) GetUsers(ctx *fiber.Ctx) {
+func (ctr *User) GetUsers(ctx *fiber.Ctx) {
 	users := ctr.s.Query.GetUsers()
 	ctx.JSON(users)
 }
 
-func (ctr *UserController) GetUser(ctx *fiber.Ctx) {
+func (ctr *User) GetUser(ctx *fiber.Ctx) {
 	id := extractID(ctx)
 	user, _ := ctr.s.Query.GetUser(id)
 	ctx.JSON(user)
 }
 
-func (ctr *UserController) CreateUser(ctx *fiber.Ctx) {
+func (ctr *User) CreateUser(ctx *fiber.Ctx) {
 	newUser := new(mutation.User)
 	if err := ctx.BodyParser(newUser); err != nil {
 		log.Fatal(err)
@@ -36,7 +36,7 @@ func (ctr *UserController) CreateUser(ctx *fiber.Ctx) {
 	ctx.JSON(created)
 }
 
-func (ctr *UserController) DeleteUser(ctx *fiber.Ctx) {
+func (ctr *User) DeleteUser(ctx *fiber.Ctx) {
 	// user: delete
 	ctx.JSON(fiber.Map{
 		"ok": true,

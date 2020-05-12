@@ -8,26 +8,26 @@ import (
 	"github.com/patipolst/go-demo/pkg/service"
 )
 
-type TodoController struct {
+type Todo struct {
 	s *service.TodoService
 }
 
-func NewTodoController(s *service.TodoService) *TodoController {
-	return &TodoController{s}
+func NewTodo(s *service.TodoService) *Todo {
+	return &Todo{s}
 }
 
-func (ctr *TodoController) GetTodos(ctx *fiber.Ctx) {
+func (ctr *Todo) GetTodos(ctx *fiber.Ctx) {
 	todos := ctr.s.Query.GetTodos()
 	ctx.JSON(todos)
 }
 
-func (ctr *TodoController) GetTodo(ctx *fiber.Ctx) {
+func (ctr *Todo) GetTodo(ctx *fiber.Ctx) {
 	id := extractID(ctx)
 	todo, _ := ctr.s.Query.GetTodo(id)
 	ctx.JSON(todo)
 }
 
-func (ctr *TodoController) CreateTodo(ctx *fiber.Ctx) {
+func (ctr *Todo) CreateTodo(ctx *fiber.Ctx) {
 	newTodo := new(mutation.Todo)
 	if err := ctx.BodyParser(newTodo); err != nil {
 		log.Fatal(err)
@@ -36,7 +36,7 @@ func (ctr *TodoController) CreateTodo(ctx *fiber.Ctx) {
 	ctx.JSON(created)
 }
 
-func (ctr *TodoController) DeleteTodo(ctx *fiber.Ctx) {
+func (ctr *Todo) DeleteTodo(ctx *fiber.Ctx) {
 	// todo: delete
 	ctx.JSON(fiber.Map{
 		"ok": true,

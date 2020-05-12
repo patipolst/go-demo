@@ -13,8 +13,8 @@ import (
 func Run(ts *service.TodoService, us *service.UserService) {
 	app := fiber.New()
 
-	tc := controller.NewTodoController(ts)
-	uc := controller.NewUserController(us)
+	tc := controller.NewTodo(ts)
+	uc := controller.NewUser(us)
 	r := resolver.New(ts, us)
 
 	route.Todo(app, tc)
