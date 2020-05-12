@@ -5,7 +5,7 @@ import (
 	"github.com/patipolst/go-demo/pkg/query"
 )
 
-type UserStore interface {
+type User interface {
 	GetAllUsers() []*query.User
 	GetUser(id int) (*query.User, error)
 	CreateUser(u mutation.User) (*query.User, error)

@@ -11,7 +11,7 @@ type Todo struct {
 	Mutation mutation.TodoMutation
 }
 
-func NewTodo(s store.TodoStore) *Todo {
+func NewTodo(s store.Todo) *Todo {
 	q := query.NewTodo(s)
 	m := mutation.NewTodo(s)
 	return &Todo{q, m}

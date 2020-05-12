@@ -5,7 +5,7 @@ import (
 	"github.com/patipolst/go-demo/pkg/query"
 )
 
-type TodoStore interface {
+type Todo interface {
 	GetAllTodos() []*query.Todo
 	GetTodo(id int) (*query.Todo, error)
 	CreateTodo(t mutation.Todo) (*query.Todo, error)

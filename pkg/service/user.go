@@ -11,7 +11,7 @@ type User struct {
 	Mutation mutation.UserMutation
 }
 
-func NewUser(s store.UserStore) *User {
+func NewUser(s store.User) *User {
 	q := query.NewUser(s)
 	m := mutation.NewUser(s)
 	return &User{q, m}
