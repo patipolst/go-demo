@@ -55,7 +55,7 @@ func (s *userStore) GetUser(id int) (*query.User, error) {
 	return &user, errors.New("user not found")
 }
 
-func (s *userStore) CreateUser(u mutation.NewUser) (*query.User, error) {
+func (s *userStore) CreateUser(u mutation.user) (*query.User, error) {
 	id := len(s.users) + 1
 	newUser := User{
 		ID:   id,

@@ -2,17 +2,17 @@ package mutation
 
 import "github.com/patipolst/go-demo/pkg/query"
 
-type NewUser struct {
+type User struct {
 	Name string `json:"name"`
 }
 
 type UserMutation interface {
-	CreateUser(NewUser) *query.User
-	CreateUsers([]NewUser) []*query.User
+	CreateUser(User) *query.User
+	CreateUsers([]User) []*query.User
 }
 
 type UserMutationStore interface {
-	CreateUser(NewUser) (*query.User, error)
+	CreateUser(User) (*query.User, error)
 }
 
 type userMutation struct {
@@ -23,12 +23,12 @@ func NewUserMutation(store UserMutationStore) UserMutation {
 	return &userMutation{store}
 }
 
-func (m *userMutation) CreateUser(user NewUser) *query.User {
+func (m *userMutation) CreateUser(user User) *query.User {
 	u, _ := m.store.CreateUser(user)
 	return u
 }
 
-func (m *userMutation) CreateUsers(users []NewUser) []*query.User {
+func (m *userMutation) CreateUsers(users []User) []*query.User {
 	var created []*query.User
 	for _, user := range users {
 		u := m.CreateUser(user)

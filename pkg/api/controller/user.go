@@ -28,7 +28,7 @@ func (ctr *UserController) GetUser(ctx *fiber.Ctx) {
 }
 
 func (ctr *UserController) CreateUser(ctx *fiber.Ctx) {
-	newUser := new(mutation.NewUser)
+	newUser := new(mutation.User)
 	if err := ctx.BodyParser(newUser); err != nil {
 		log.Fatal(err)
 	}

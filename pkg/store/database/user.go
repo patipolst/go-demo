@@ -42,7 +42,7 @@ func (s *userStore) GetUser(id int) (*query.User, error) {
 	return u.ToQueryUser(), nil
 }
 
-func (s *userStore) CreateUser(u mutation.NewUser) (*query.User, error) {
+func (s *userStore) CreateUser(u mutation.User) (*query.User, error) {
 	newUser := User{
 		Name: u.Name,
 	}
