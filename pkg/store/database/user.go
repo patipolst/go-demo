@@ -18,15 +18,15 @@ func (u *User) ToQueryUser() *query.User {
 	}
 }
 
-type UserStore struct {
+type userStore struct {
 	db *gorm.DB
 }
 
-func NewUserStore(db *gorm.DB) *UserStore {
-	return &UserStore{db}
+func NewUserStore(db *gorm.DB) *userStore {
+	return &userStore{db}
 }
 
-func (s *UserStore) GetAllUsers() []*query.User {
+func (s *userStore) GetAllUsers() []*query.User {
 	var us []User
 	var users []*query.User
 	s.db.Find(&us)
@@ -36,13 +36,13 @@ func (s *UserStore) GetAllUsers() []*query.User {
 	return users
 }
 
-func (s *UserStore) GetUser(id int) (*query.User, error) {
+func (s *userStore) GetUser(id int) (*query.User, error) {
 	var u User
 	s.db.First(&u, id)
 	return u.ToQueryUser(), nil
 }
 
-func (s *UserStore) CreateUser(u mutation.NewUser) (*query.User, error) {
+func (s *userStore) CreateUser(u mutation.NewUser) (*query.User, error) {
 	newUser := User{
 		Name: u.Name,
 	}
@@ -50,7 +50,7 @@ func (s *UserStore) CreateUser(u mutation.NewUser) (*query.User, error) {
 	return newUser.ToQueryUser(), nil
 }
 
-func (s *UserStore) DeleteUser(id int) {
+func (s *userStore) DeleteUser(id int) {
 	var u User
 	s.db.First(&u, id)
 	s.db.Delete(&u)

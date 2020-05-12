@@ -3,8 +3,7 @@ package service
 import (
 	"github.com/patipolst/go-demo/pkg/mutation"
 	"github.com/patipolst/go-demo/pkg/query"
-	"github.com/patipolst/go-demo/pkg/store/database"
-	"github.com/patipolst/go-demo/pkg/store/memory"
+	"github.com/patipolst/go-demo/pkg/store"
 )
 
 type TodoService struct {
@@ -12,14 +11,8 @@ type TodoService struct {
 	Mutation mutation.TodoMutation
 }
 
-func NewTodoDBService(store *database.TodoStore) *TodoService {
-	q := query.NewTodoQuery(store)
-	m := mutation.NewTodoMutation(store)
-	return &TodoService{q, m}
-}
-
-func NewTodoMemoryService(store *memory.TodoStore) *TodoService {
-	q := query.NewTodoQuery(store)
-	m := mutation.NewTodoMutation(store)
+func NewTodoService(s store.TodoStore) *TodoService {
+	q := query.NewTodoQuery(s)
+	m := mutation.NewTodoMutation(s)
 	return &TodoService{q, m}
 }

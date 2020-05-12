@@ -22,15 +22,15 @@ func (t *Todo) ToQueryTodo() *query.Todo {
 	}
 }
 
-type TodoStore struct {
+type todoStore struct {
 	db *gorm.DB
 }
 
-func NewTodoStore(db *gorm.DB) *TodoStore {
-	return &TodoStore{db}
+func NewTodoStore(db *gorm.DB) *todoStore {
+	return &todoStore{db}
 }
 
-func (s *TodoStore) GetAllTodos() []*query.Todo {
+func (s *todoStore) GetAllTodos() []*query.Todo {
 	var ts []Todo
 	var todos []*query.Todo
 	s.db.Find(&ts)
@@ -40,13 +40,13 @@ func (s *TodoStore) GetAllTodos() []*query.Todo {
 	return todos
 }
 
-func (s *TodoStore) GetTodo(id int) (*query.Todo, error) {
+func (s *todoStore) GetTodo(id int) (*query.Todo, error) {
 	var t Todo
 	s.db.First(&t, id)
 	return t.ToQueryTodo(), nil
 }
 
-func (s *TodoStore) CreateTodo(t mutation.NewTodo) (*query.Todo, error) {
+func (s *todoStore) CreateTodo(t mutation.NewTodo) (*query.Todo, error) {
 	newTodo := Todo{
 		Text:   t.Text,
 		Done:   false,
@@ -56,7 +56,7 @@ func (s *TodoStore) CreateTodo(t mutation.NewTodo) (*query.Todo, error) {
 	return newTodo.ToQueryTodo(), nil
 }
 
-func (s *TodoStore) DeleteTodo(id int) {
+func (s *todoStore) DeleteTodo(id int) {
 	var t Todo
 	s.db.First(&t, id)
 	s.db.Delete(&t)

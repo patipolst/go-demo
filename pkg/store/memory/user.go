@@ -19,17 +19,17 @@ func (u *User) ToQueryUser() *query.User {
 	}
 }
 
-type UserStore struct {
+type userStore struct {
 	users map[int]User
 }
 
-func NewUserStore() *UserStore {
-	return &UserStore{
+func NewUserStore() *userStore {
+	return &userStore{
 		make(map[int]User),
 	}
 }
 
-func (s *UserStore) GetAllUsers() []*query.User {
+func (s *userStore) GetAllUsers() []*query.User {
 	var users []*query.User
 	for i := range s.users {
 		user := query.User{
@@ -41,7 +41,7 @@ func (s *UserStore) GetAllUsers() []*query.User {
 	return users
 }
 
-func (s *UserStore) GetUser(id int) (*query.User, error) {
+func (s *userStore) GetUser(id int) (*query.User, error) {
 	var user query.User
 
 	for i := range s.users {
@@ -55,7 +55,7 @@ func (s *UserStore) GetUser(id int) (*query.User, error) {
 	return &user, errors.New("user not found")
 }
 
-func (s *UserStore) CreateUser(u mutation.NewUser) (*query.User, error) {
+func (s *userStore) CreateUser(u mutation.NewUser) (*query.User, error) {
 	id := len(s.users) + 1
 	newUser := User{
 		ID:   id,
@@ -65,6 +65,6 @@ func (s *UserStore) CreateUser(u mutation.NewUser) (*query.User, error) {
 	return newUser.ToQueryUser(), nil
 }
 
-func (s *UserStore) DeleteUser(id int) {
+func (s *userStore) DeleteUser(id int) {
 	delete(s.users, id)
 }

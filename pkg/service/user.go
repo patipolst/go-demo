@@ -3,8 +3,7 @@ package service
 import (
 	"github.com/patipolst/go-demo/pkg/mutation"
 	"github.com/patipolst/go-demo/pkg/query"
-	"github.com/patipolst/go-demo/pkg/store/database"
-	"github.com/patipolst/go-demo/pkg/store/memory"
+	"github.com/patipolst/go-demo/pkg/store"
 )
 
 type UserService struct {
@@ -12,14 +11,8 @@ type UserService struct {
 	Mutation mutation.UserMutation
 }
 
-func NewUserDBService(store *database.UserStore) *UserService {
-	q := query.NewUserQuery(store)
-	m := mutation.NewUserMutation(store)
-	return &UserService{q, m}
-}
-
-func NewUserMemoryService(store *memory.UserStore) *UserService {
-	q := query.NewUserQuery(store)
-	m := mutation.NewUserMutation(store)
+func NewUserService(s store.UserStore) *UserService {
+	q := query.NewUserQuery(s)
+	m := mutation.NewUserMutation(s)
 	return &UserService{q, m}
 }

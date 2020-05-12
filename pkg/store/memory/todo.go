@@ -23,17 +23,17 @@ func (t *Todo) ToQueryTodo() *query.Todo {
 	}
 }
 
-type TodoStore struct {
+type todoStore struct {
 	todos map[int]Todo
 }
 
-func NewTodoStore() *TodoStore {
-	return &TodoStore{
+func NewTodoStore() *todoStore {
+	return &todoStore{
 		make(map[int]Todo),
 	}
 }
 
-func (s *TodoStore) GetAllTodos() []*query.Todo {
+func (s *todoStore) GetAllTodos() []*query.Todo {
 	var todos []*query.Todo
 	for i := range s.todos {
 		todo := query.Todo{
@@ -47,7 +47,7 @@ func (s *TodoStore) GetAllTodos() []*query.Todo {
 	return todos
 }
 
-func (s *TodoStore) GetTodo(id int) (*query.Todo, error) {
+func (s *todoStore) GetTodo(id int) (*query.Todo, error) {
 	var todo query.Todo
 
 	for i := range s.todos {
@@ -63,7 +63,7 @@ func (s *TodoStore) GetTodo(id int) (*query.Todo, error) {
 	return &todo, errors.New("todo not found")
 }
 
-func (s *TodoStore) CreateTodo(t mutation.NewTodo) (*query.Todo, error) {
+func (s *todoStore) CreateTodo(t mutation.NewTodo) (*query.Todo, error) {
 	id := len(s.todos) + 1
 	newTodo := Todo{
 		ID:     id,
@@ -75,6 +75,6 @@ func (s *TodoStore) CreateTodo(t mutation.NewTodo) (*query.Todo, error) {
 	return newTodo.ToQueryTodo(), nil
 }
 
-func (s *TodoStore) DeleteTodo(id int) {
+func (s *todoStore) DeleteTodo(id int) {
 	delete(s.todos, id)
 }

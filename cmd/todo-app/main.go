@@ -13,7 +13,9 @@ func main() {
 
 	todoStore := database.NewTodoStore(db)
 	userStore := database.NewUserStore(db)
-	todoService := service.NewTodoDBService(todoStore)
-	userService := service.NewUserDBService(userStore)
+	// todoStore := memory.NewTodoStore()
+	// userStore := memory.NewUserStore()
+	todoService := service.NewTodoService(todoStore)
+	userService := service.NewUserService(userStore)
 	api.Run(todoService, userService)
 }
