@@ -12,15 +12,15 @@ type TodoMutation interface {
 	CreateTodos([]Todo) []*query.Todo
 }
 
-type TodoMutationStore interface {
+type todoMutationStore interface {
 	CreateTodo(Todo) (*query.Todo, error)
 }
 
 type todoMutation struct {
-	store TodoMutationStore
+	store todoMutationStore
 }
 
-func NewTodo(store TodoMutationStore) TodoMutation {
+func NewTodo(store todoMutationStore) TodoMutation {
 	return &todoMutation{store}
 }
 

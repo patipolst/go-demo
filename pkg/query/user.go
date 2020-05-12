@@ -10,16 +10,16 @@ type UserQuery interface {
 	GetUser(int) (*User, error)
 }
 
-type UserQueryStore interface {
+type userQueryStore interface {
 	GetAllUsers() []*User
 	GetUser(int) (*User, error)
 }
 
 type userQuery struct {
-	store UserQueryStore
+	store userQueryStore
 }
 
-func NewUser(store UserQueryStore) UserQuery {
+func NewUser(store userQueryStore) UserQuery {
 	return &userQuery{store}
 }
 

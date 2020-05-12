@@ -11,15 +11,15 @@ type UserMutation interface {
 	CreateUsers([]User) []*query.User
 }
 
-type UserMutationStore interface {
+type userMutationStore interface {
 	CreateUser(User) (*query.User, error)
 }
 
 type userMutation struct {
-	store UserMutationStore
+	store userMutationStore
 }
 
-func NewUser(store UserMutationStore) UserMutation {
+func NewUser(store userMutationStore) UserMutation {
 	return &userMutation{store}
 }
 
