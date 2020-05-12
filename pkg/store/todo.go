@@ -8,6 +8,6 @@ import (
 type TodoStore interface {
 	GetAllTodos() []*query.Todo
 	GetTodo(id int) (*query.Todo, error)
-	CreateTodo(t mutation.NewTodo) (*query.Todo, error)
+	CreateTodo(t mutation.Todo) (*query.Todo, error)
 	DeleteTodo(id int)
 }

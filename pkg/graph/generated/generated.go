@@ -46,7 +46,7 @@ type DirectiveRoot struct {
 
 type ComplexityRoot struct {
 	Mutation struct {
-		CreateTodo func(childComplexity int, input mutation.NewTodo) int
+		CreateTodo func(childComplexity int, input mutation.Todo) int
 	}
 
 	Query struct {
@@ -70,7 +70,7 @@ type ComplexityRoot struct {
 }
 
 type MutationResolver interface {
-	CreateTodo(ctx context.Context, input mutation.NewTodo) (*query.Todo, error)
+	CreateTodo(ctx context.Context, input mutation.Todo) (*query.Todo, error)
 }
 type QueryResolver interface {
 	Todos(ctx context.Context) ([]*query.Todo, error)
@@ -107,7 +107,7 @@ func (e *executableSchema) Complexity(typeName, field string, childComplexity in
 			return 0, false
 		}
 
-		return e.complexity.Mutation.CreateTodo(childComplexity, args["input"].(mutation.NewTodo)), true
+		return e.complexity.Mutation.CreateTodo(childComplexity, args["input"].(mutation.Todo)), true
 
 	case "Query.todo":
 		if e.complexity.Query.Todo == nil {
@@ -279,7 +279,7 @@ directive @goField(forceResolver: Boolean, name: String) on INPUT_FIELD_DEFINITI
   user: User!
 }
 
-input NewTodo @goModel(model: "github.com/patipolst/go-demo/pkg/mutation.NewTodo") {
+input NewTodo @goModel(model: "github.com/patipolst/go-demo/pkg/mutation.Todo") {
   text: String!
   userId: Int!
 }`, BuiltIn: false},
@@ -297,9 +297,9 @@ var parsedSchema = gqlparser.MustLoadSchema(sources...)
 func (ec *executionContext) field_Mutation_createTodo_args(ctx context.Context, rawArgs map[string]interface{}) (map[string]interface{}, error) {
 	var err error
 	args := map[string]interface{}{}
-	var arg0 mutation.NewTodo
+	var arg0 mutation.Todo
 	if tmp, ok := rawArgs["input"]; ok {
-		arg0, err = ec.unmarshalNNewTodo2githubᚗcomᚋpatipolstᚋgoᚑdemoᚋpkgᚋmutationᚐNewTodo(ctx, tmp)
+		arg0, err = ec.unmarshalNNewTodo2githubᚗcomᚋpatipolstᚋgoᚑdemoᚋpkgᚋmutationᚐTodo(ctx, tmp)
 		if err != nil {
 			return nil, err
 		}
@@ -410,7 +410,7 @@ func (ec *executionContext) _Mutation_createTodo(ctx context.Context, field grap
 	fc.Args = args
 	resTmp, err := ec.ResolverMiddleware(ctx, func(rctx context.Context) (interface{}, error) {
 		ctx = rctx // use context from middleware stack in children
-		return ec.resolvers.Mutation().CreateTodo(rctx, args["input"].(mutation.NewTodo))
+		return ec.resolvers.Mutation().CreateTodo(rctx, args["input"].(mutation.Todo))
 	})
 	if err != nil {
 		ec.Error(ctx, err)
@@ -1899,8 +1899,8 @@ func (ec *executionContext) ___Type_ofType(ctx context.Context, field graphql.Co
 
 // region    **************************** input.gotpl *****************************
 
-func (ec *executionContext) unmarshalInputNewTodo(ctx context.Context, obj interface{}) (mutation.NewTodo, error) {
-	var it mutation.NewTodo
+func (ec *executionContext) unmarshalInputNewTodo(ctx context.Context, obj interface{}) (mutation.Todo, error) {
+	var it mutation.Todo
 	var asMap = obj.(map[string]interface{})
 
 	for k, v := range asMap {
@@ -2412,7 +2412,7 @@ func (ec *executionContext) marshalNInt2int(ctx context.Context, sel ast.Selecti
 	return res
 }
 
-func (ec *executionContext) unmarshalNNewTodo2githubᚗcomᚋpatipolstᚋgoᚑdemoᚋpkgᚋmutationᚐNewTodo(ctx context.Context, v interface{}) (mutation.NewTodo, error) {
+func (ec *executionContext) unmarshalNNewTodo2githubᚗcomᚋpatipolstᚋgoᚑdemoᚋpkgᚋmutationᚐTodo(ctx context.Context, v interface{}) (mutation.Todo, error) {
 	return ec.unmarshalInputNewTodo(ctx, v)
 }
 

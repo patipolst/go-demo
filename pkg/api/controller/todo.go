@@ -28,7 +28,7 @@ func (ctr *TodoController) GetTodo(ctx *fiber.Ctx) {
 }
 
 func (ctr *TodoController) CreateTodo(ctx *fiber.Ctx) {
-	newTodo := new(mutation.NewTodo)
+	newTodo := new(mutation.Todo)
 	if err := ctx.BodyParser(newTodo); err != nil {
 		log.Fatal(err)
 	}

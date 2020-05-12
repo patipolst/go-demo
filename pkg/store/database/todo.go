@@ -46,7 +46,7 @@ func (s *todoStore) GetTodo(id int) (*query.Todo, error) {
 	return t.ToQueryTodo(), nil
 }
 
-func (s *todoStore) CreateTodo(t mutation.NewTodo) (*query.Todo, error) {
+func (s *todoStore) CreateTodo(t mutation.Todo) (*query.Todo, error) {
 	newTodo := Todo{
 		Text:   t.Text,
 		Done:   false,

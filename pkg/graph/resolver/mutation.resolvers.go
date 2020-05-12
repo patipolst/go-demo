@@ -11,7 +11,7 @@ import (
 	"github.com/patipolst/go-demo/pkg/query"
 )
 
-func (r *mutationResolver) CreateTodo(ctx context.Context, input mutation.NewTodo) (*query.Todo, error) {
+func (r *mutationResolver) CreateTodo(ctx context.Context, input mutation.Todo) (*query.Todo, error) {
 	return r.TodoService.Mutation.CreateTodo(input), nil
 }
 
