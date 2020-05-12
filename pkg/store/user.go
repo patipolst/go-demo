@@ -8,6 +8,6 @@ import (
 type UserStore interface {
 	GetAllUsers() []*query.User
 	GetUser(id int) (*query.User, error)
-	CreateUser(t mutation.NewUser) (*query.User, error)
+	CreateUser(u mutation.NewUser) (*query.User, error)
 	DeleteUser(id int)
 }
