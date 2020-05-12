@@ -12,16 +12,16 @@ type TodoQuery interface {
 	GetTodo(int) (*Todo, error)
 }
 
-type TodoStore interface {
+type TodoQueryStore interface {
 	GetAllTodos() []*Todo
 	GetTodo(int) (*Todo, error)
 }
 
 type todoQuery struct {
-	store TodoStore
+	store TodoQueryStore
 }
 
-func NewTodoQuery(store TodoStore) TodoQuery {
+func NewTodoQuery(store TodoQueryStore) TodoQuery {
 	return &todoQuery{store}
 }
 
